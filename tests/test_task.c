@@ -64,8 +64,38 @@ START_TEST (test_entab)
     }
 END_TEST
 
-START_TEST (test_enter)
+START_TEST (test_enter1)
     {
+        const char input[] =  "hellomydearfriend";
+        const char output[] = "hello\nmydea\nrfrie\nnd";
+        int n = 5;
+        int k = 1;
+        COMPARATOR(k, enter(n, input), output);
+        ck_assert(1 == k);
+
+    }
+END_TEST
+
+START_TEST (test_enter2)
+    {
+        const char input[] =  "";
+        const char output[] = "";
+        int n = 1;
+        int k = 1;
+        COMPARATOR(k, enter(n, input), output);
+        ck_assert(1 == k);
+
+    }
+END_TEST
+
+START_TEST (test_enter3)
+    {
+        const char input[] =  "i\n";
+        const char output[] = "i\n";
+        int n = 1;
+        int k = 1;
+        COMPARATOR(k, enter(n, input), output);
+        ck_assert(1 == k);
 
     }
 END_TEST
@@ -152,7 +182,8 @@ Suite *str_suite(void) {
 
     tcase_add_test(tcase, test_detab);
     tcase_add_test(tcase, test_entab);
-    tcase_add_test(tcase, test_enter);
+    tcase_add_test(tcase, test_enter1);
+    tcase_add_test(tcase, test_enter2);
     tcase_add_test(tcase, test_flush);
     tcase_add_test(tcase, test_htoi);
     tcase_add_test(tcase, test_squeeze);

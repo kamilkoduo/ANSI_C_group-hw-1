@@ -79,4 +79,41 @@ char *detab(const char input[]) {
     return res;
 }
 
+char* enter(int n, const char input[]) {
+    int i = 0, size = 0, counter = 0;
+
+    STRING_LEN(i, input);
+
+    for (int j = 0; j < i; j++) {
+        if (counter > n) {
+            size++;
+            counter = 0;
+        } else if (input[j] == '\n') {
+            counter = 0;
+        } else {
+            counter++;
+        }
+        size++;
+    }
+
+    char *res = ALLOCATE(size);
+    counter = 0;
+    int arr_pointer = 0;
+    for (int j = 0; j < i; j++) {
+        if (counter > n) {
+            res[arr_pointer] = '\n';
+            arr_pointer++;
+            res[arr_pointer] = input[j];
+            counter = 0;
+        } else if (input[j] == '\n'){
+            res[arr_pointer] = '\n';
+            counter = 0;
+        } else {
+            res[arr_pointer] = input[i];
+        }
+        arr_pointer++;
+    }
+
+    return res;
+}
 /** GET FROM task.h */
