@@ -60,7 +60,12 @@ END_TEST
 
 START_TEST (test_entab)
     {
-
+        const char input[] = "          1234     5          ";
+        const char pattern[] = "\t\t  1234\t 5\t\t   ";
+        char *output = entab(input);
+        int k = 1;
+        COMPARATOR(k, output, pattern);
+        ck_assert(k == 1);
     }
 END_TEST
 
@@ -204,7 +209,6 @@ Suite *str_suite(void) {
 
 int main(int argc, char *argv[]) {
 
-
     int number_failed;
     Suite *suite = str_suite();
     SRunner *runner = srunner_create(suite);
@@ -212,5 +216,4 @@ int main(int argc, char *argv[]) {
     number_failed = srunner_ntests_failed(runner);
     srunner_free(runner);
     return number_failed;
-
 }
