@@ -9,8 +9,7 @@
  *  please look for test case for stub function in test_task.c
  */
 
-int stub(void)
-{
+int stub(void) {
     return 42;
 }
 
@@ -33,14 +32,13 @@ int stub(void)
  *  please look for test case for array_changer function in test_task.c
  */
 
-char* array_changer(const char c[])
-{
+char *array_changer(const char c[]) {
     char i = 0, j = 0;
     STRING_LEN(i, c);
-    char* b = ALLOCATE(i);
+    char *b = ALLOCATE(i);
 
-    for (;j < i;) {
-        if(b[j] == 'c')
+    for (; j < i;) {
+        if (b[j] == 'c')
             b[j] = 'b';
         else
             b[j] = c[j];
@@ -51,9 +49,34 @@ char* array_changer(const char c[])
 
 /** YOUR SOLUTIONS */
 
-char* detab(const char input[])
-{
-    /** YOUR CODE HERE */
+char *detab(const char input[]) {
+    int size = 0;
+    int i = 0;
+    //1)Найти конечную длину строки
+    STRING_LEN(i, input);
+    for (int j = 0; j < i; j++) {
+        if (input[j] != '\t') {
+            size++;
+        } else {
+            size += 4;
+        }
+    }
+    char *res = ALLOCATE(size);
+    int ind = 0;
+    //2)Заполнить строку
+    for (int j = 0; j < i; j++) {
+
+        if (input[j] != '\t') {
+            res[ind] = input[j];
+            ind++;
+        } else {
+            for (int l = ind; l <= ind + 3; l++) {
+                res[l] = ' ';
+            }
+            ind += 4;
+        }
+    }
+    return res;
 }
 
 /** GET FROM task.h */

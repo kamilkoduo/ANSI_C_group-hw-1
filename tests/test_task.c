@@ -19,7 +19,7 @@ START_TEST (test_array_changer)
 
         /** change 'c' to 'b' */
 
-        char* output = array_changer(input);
+        char *output = array_changer(input);
 
         /** initialise k because ck_assert need's it to be sure
          *  that he compare something initialised with 1
@@ -49,7 +49,12 @@ END_TEST
 
 START_TEST (test_detab)
     {
-
+        const char input[] = "\tabc\tdef\tghi";
+        const char pattern[] = "    abc    def    ghi";
+        char *output = detab(input);
+        int k = 1;
+        COMPARATOR(k, output, pattern);
+        ck_assert(1 == k);
     }
 END_TEST
 
@@ -138,8 +143,7 @@ START_TEST (test_atofe)
 END_TEST
 
 
-
-Suite* str_suite (void) {
+Suite *str_suite(void) {
     Suite *suite = suite_create("Home assignment 1");
     TCase *tcase = tcase_create("case");
 
@@ -167,7 +171,9 @@ Suite* str_suite (void) {
     return suite;
 }
 
-int main (int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
+
+
     int number_failed;
     Suite *suite = str_suite();
     SRunner *runner = srunner_create(suite);
@@ -175,4 +181,5 @@ int main (int argc, char *argv[]) {
     number_failed = srunner_ntests_failed(runner);
     srunner_free(runner);
     return number_failed;
+
 }

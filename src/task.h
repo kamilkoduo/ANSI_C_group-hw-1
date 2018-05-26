@@ -72,4 +72,6 @@ int strrindex(const char s[], const  char t[]);
 
 double atofe(const char s[]);
 
+
+
 #endif //TEMPLATE_TASK_H
