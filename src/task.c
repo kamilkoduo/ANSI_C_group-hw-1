@@ -172,4 +172,24 @@ int htoi(const char s[]) {
     }
     return res;
 }
-/** GET FROM task.h */
+
+int any(const char s1[], const char s2[]) {
+    int i = 0;
+    STRING_LEN(i, s1);
+
+    int size_s1 = i, size_s2 = 0;
+
+    i = 0;
+    STRING_LEN(i, s2);
+    size_s2 = i;
+
+    for (i = 0; i < size_s1; i++){
+        for (int j = 0; j < size_s2; j++) {
+            if (s1[i] == s2[j]) {
+                return i;
+            }
+        }
+    }
+
+    return -1;
+}
