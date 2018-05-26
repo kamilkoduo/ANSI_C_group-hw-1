@@ -106,9 +106,37 @@ START_TEST (test_flush)
     }
 END_TEST
 
-START_TEST (test_htoi)
+START_TEST (test_htoi1)
     {
+        const char input[] = "0xA510";
+        int output = 42256;
+        ck_assert(htoi(input) == output);
+    }
+END_TEST
 
+START_TEST (test_htoi2)
+    {
+        const char input[] = "FF";
+        int output = 255;
+        ck_assert(htoi(input) == output);
+    }
+END_TEST
+
+
+START_TEST (test_htoi3)
+    {
+        const char input[] = "0xabcdef1";
+        int output = 180150001;
+        ck_assert(htoi(input) == output);
+    }
+END_TEST
+
+
+START_TEST (test_htoi4)
+    {
+        const char input[] = "aDc3Ac3";
+        int output = 182205123;
+        ck_assert(htoi(input) == output);
     }
 END_TEST
 
@@ -185,7 +213,10 @@ Suite *str_suite(void) {
     tcase_add_test(tcase, test_enter1);
     tcase_add_test(tcase, test_enter2);
     tcase_add_test(tcase, test_flush);
-    tcase_add_test(tcase, test_htoi);
+    tcase_add_test(tcase, test_htoi1);
+    tcase_add_test(tcase, test_htoi2);
+    tcase_add_test(tcase, test_htoi3);
+    tcase_add_test(tcase, test_htoi4);
     tcase_add_test(tcase, test_squeeze);
     tcase_add_test(tcase, test_any);
     tcase_add_test(tcase, test_setbits);

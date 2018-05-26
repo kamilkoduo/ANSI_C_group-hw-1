@@ -3,6 +3,7 @@
 //
 
 #include "task.h"
+#include <math.h>
 
 /** The stub function
  *  just to demonstrate how to work with ck_assert
@@ -114,6 +115,31 @@ char* enter(int n, const char input[]) {
         arr_pointer++;
     }
 
+    return res;
+}
+
+
+int htoi(const char s[]) {
+    int j = 0, i = 0;
+    STRING_LEN(i, s);
+
+    if (s[0] == '0' && (s[1] == 'x' || s[1] == 'X')) {
+        j = 2;
+    }
+
+    int res = 0, power = 0;
+    for (i--; i >= j; i--) {
+        int temp;
+        if (s[i] - '0' >= 0 && s[i] - '9' <= 0)
+            temp = s[i] - '0';
+        else if (s[i] - 'a' >= 0 && s[i] - 'z' <= 0)
+            temp = s[i] - 'a' + 10;
+        else
+            temp = s[i] - 'A' + 10;
+
+        res += pow(16, power) * temp;
+        power++;
+    }
     return res;
 }
 /** GET FROM task.h */
