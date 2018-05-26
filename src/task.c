@@ -48,38 +48,39 @@ char *array_changer(const char c[]) {
 }
 
 /** YOUR SOLUTIONS */
-char* entab(const char input[]){
-    int i=0;
-    STRING_LEN(i,input);
-    int* buf=ALLOCATE_INT(i);
-    int size=i;
-    buf[0]=input[0]==' '?1:0;
-    for (int j=1;j<i;j++){
-        if (input[j]==' '){
-            buf[j]=buf[j-1]+1;
-            if (buf[j]==4&&j>=3){
-                buf[j]=0;
-                buf[j-3]=-1;
-                size-=3;
+char *entab(const char input[]) {
+    int i = 0;
+    int size=0;
+    STRING_LEN(size, input);
+    STRING_LEN(i, input);
+    int *buf = ALLOCATE_INT(i);
+    buf[0] = input[0] == ' ' ? 1 : 0;
+    for (int j = 1; j < i; j++) {
+        if (input[j] == ' ') {
+            buf[j] = buf[j - 1] + 1;
+            if (buf[j] == 4 && j >= 3) {
+                buf[j] = 0;
+                buf[j - 3] = -1;
+                size -= 3;
             }
         }
     }
-    char* res=ALLOCATE(size);
-    int ind=-1;
-    for (int j=0;j<i;){
+    char *res = ALLOCATE(size);
+    int ind = -1;
+    for (int j = 0; j < i;) {
         ind++;
-        if (buf[j]==-1){
-            res[ind]='\t';
-            j+=4;
-        }
-        else{
-            res[ind]=input[j];
+        if (buf[j] == -1) {
+            res[ind] = '\t';
+            j += 4;
+        } else {
+            res[ind] = input[j];
             j++;
         }
     }
     return res;
 
 }
+
 char *detab(const char input[]) {
     int size = 0;
     int i = 0;
@@ -109,7 +110,8 @@ char *detab(const char input[]) {
     }
     return res;
 }
-char* enter(int n, const char input[]) {
+
+char *enter(int n, const char input[]) {
     int i = 0, size = 0, counter = 0;
 
     STRING_LEN(i, input);
@@ -135,7 +137,7 @@ char* enter(int n, const char input[]) {
             arr_pointer++;
             res[arr_pointer] = input[j];
             counter = 0;
-        } else if (input[j] == '\n'){
+        } else if (input[j] == '\n') {
             res[arr_pointer] = '\n';
             counter = 0;
         } else {
@@ -147,4 +149,36 @@ char* enter(int n, const char input[]) {
     return res;
 }
 
+char *squeeze(const char s1[], const char s2[]) {
+    int *s2_ = ALLOCATE_INT(256);
+    int i = 0;
+    STRING_LEN(i, s2);
+    for (int j = 0; j < i; j++) {
+        s2_[s2[j]] = 1;
+    }
+    //int i3=0;
+    //STRING_LEN(i3,"kekpek");
+    int i1 = 0;
+    STRING_LEN(i1, s1);
+    int size = i1;
+    for (int j = 0; j < i1; j++) {
+        if (s2_[s1[j]] == 1) {
+            size -= 1;
+            if (size < 0) {
+                size = 0;
+            }
+        }
+    }
+    char *res = ALLOCATE(size);
+    int ind = 0;
+    for (int j = 0; j < i1; j++) {
+        if (s2_[s1[j]] != 1) {
+            res[ind] = s1[j];
+            ind++;
+        }
+
+    }
+    return res;
+
+}
 /** GET FROM task.h */
