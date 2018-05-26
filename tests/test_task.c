@@ -111,9 +111,37 @@ START_TEST (test_flush)
     }
 END_TEST
 
-START_TEST (test_htoi)
+START_TEST (test_htoi1)
     {
+        const char input[] = "0xA510";
+        int output = 42256;
+        ck_assert(htoi(input) == output);
+    }
+END_TEST
 
+START_TEST (test_htoi2)
+    {
+        const char input[] = "FF";
+        int output = 255;
+        ck_assert(htoi(input) == output);
+    }
+END_TEST
+
+
+START_TEST (test_htoi3)
+    {
+        const char input[] = "0xabcdef1";
+        int output = 180150001;
+        ck_assert(htoi(input) == output);
+    }
+END_TEST
+
+
+START_TEST (test_htoi4)
+    {
+        const char input[] = "aDc3Ac3";
+        int output = 182205123;
+        ck_assert(htoi(input) == output);
     }
 END_TEST
 
@@ -130,9 +158,29 @@ START_TEST (test_squeeze)
     }
 END_TEST
 
-START_TEST (test_any)
+START_TEST (test_any1)
     {
+        const char first_string[] = "Hello World";
+        const char second_string[] = "abc";
+        ck_assert(any(first_string, second_string) == -1);
+    }
+END_TEST
 
+
+START_TEST (test_any2)
+    {
+        const char first_string[] = "Hello World!";
+        const char second_string[] = "abc ";
+        ck_assert(any(first_string, second_string) == 5);
+   }
+END_TEST
+
+
+START_TEST (test_any3)
+    {
+        const char first_string[] = "This is my family if you wanna see dis look at me!";
+        const char second_string[] = "wxyz";
+        ck_assert(any(first_string, second_string) == 9);
     }
 END_TEST
 
@@ -197,9 +245,14 @@ Suite *str_suite(void) {
     tcase_add_test(tcase, test_enter1);
     tcase_add_test(tcase, test_enter2);
     tcase_add_test(tcase, test_flush);
-    tcase_add_test(tcase, test_htoi);
+    tcase_add_test(tcase, test_htoi1);
+    tcase_add_test(tcase, test_htoi2);
+    tcase_add_test(tcase, test_htoi3);
+    tcase_add_test(tcase, test_htoi4);
     tcase_add_test(tcase, test_squeeze);
-    tcase_add_test(tcase, test_any);
+    tcase_add_test(tcase, test_any1);
+    tcase_add_test(tcase, test_any2);
+    tcase_add_test(tcase, test_any3);
     tcase_add_test(tcase, test_setbits);
     tcase_add_test(tcase, test_binsearch);
     tcase_add_test(tcase, test_escape);

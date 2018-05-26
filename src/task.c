@@ -3,7 +3,7 @@
 //
 
 #include "task.h"
-
+#include <math.h>
 /** The stub function
  *  just to demonstrate how to work with ck_assert
  *  please look for test case for stub function in test_task.c
@@ -48,39 +48,38 @@ char *array_changer(const char c[]) {
 }
 
 /** YOUR SOLUTIONS */
-char *entab(const char input[]) {
-    int i = 0;
-    int size=0;
-    STRING_LEN(size, input);
-    STRING_LEN(i, input);
-    int *buf = ALLOCATE_INT(i);
-    buf[0] = input[0] == ' ' ? 1 : 0;
-    for (int j = 1; j < i; j++) {
-        if (input[j] == ' ') {
-            buf[j] = buf[j - 1] + 1;
-            if (buf[j] == 4 && j >= 3) {
-                buf[j] = 0;
-                buf[j - 3] = -1;
-                size -= 3;
+char* entab(const char input[]){
+    int i=0;
+    STRING_LEN(i,input);
+    int* buf=ALLOCATE_INT(i);
+    int size=i;
+    buf[0]=input[0]==' '?1:0;
+    for (int j=1;j<i;j++){
+        if (input[j]==' '){
+            buf[j]=buf[j-1]+1;
+            if (buf[j]==4&&j>=3){
+                buf[j]=0;
+                buf[j-3]=-1;
+                size-=3;
             }
         }
     }
-    char *res = ALLOCATE(size);
-    int ind = -1;
-    for (int j = 0; j < i;) {
+    char* res=ALLOCATE(size);
+    int ind=-1;
+    for (int j=0;j<i;){
         ind++;
-        if (buf[j] == -1) {
-            res[ind] = '\t';
-            j += 4;
-        } else {
-            res[ind] = input[j];
+        if (buf[j]==-1){
+            res[ind]='\t';
+            j+=4;
+        }
+        else{
+            res[ind]=input[j];
             j++;
         }
     }
     return res;
 
 }
-
 char *detab(const char input[]) {
     int size = 0;
     int i = 0;
@@ -110,8 +109,7 @@ char *detab(const char input[]) {
     }
     return res;
 }
-
-char *enter(int n, const char input[]) {
+char* enter(int n, const char input[]) {
     int i = 0, size = 0, counter = 0;
 
     STRING_LEN(i, input);
@@ -137,7 +135,7 @@ char *enter(int n, const char input[]) {
             arr_pointer++;
             res[arr_pointer] = input[j];
             counter = 0;
-        } else if (input[j] == '\n') {
+        } else if (input[j] == '\n'){
             res[arr_pointer] = '\n';
             counter = 0;
         } else {
@@ -148,7 +146,50 @@ char *enter(int n, const char input[]) {
 
     return res;
 }
+int htoi(const char s[]) {
+    int j = 0, i = 0;
+    STRING_LEN(i, s);
 
+    if (s[0] == '0' && (s[1] == 'x' || s[1] == 'X')) {
+        j = 2;
+    }
+
+    int res = 0, power = 0;
+    for (i--; i >= j; i--) {
+        int temp;
+        if (s[i] - '0' >= 0 && s[i] - '9' <= 0)
+            temp = s[i] - '0';
+        else if (s[i] - 'a' >= 0 && s[i] - 'z' <= 0)
+            temp = s[i] - 'a' + 10;
+        else
+            temp = s[i] - 'A' + 10;
+
+        res += pow(16, power) * temp;
+        power++;
+    }
+    return res;
+}
+
+int any(const char s1[], const char s2[]) {
+    int i = 0;
+    STRING_LEN(i, s1);
+
+    int size_s1 = i, size_s2 = 0;
+
+    i = 0;
+    STRING_LEN(i, s2);
+    size_s2 = i;
+
+    for (i = 0; i < size_s1; i++){
+        for (int j = 0; j < size_s2; j++) {
+            if (s1[i] == s2[j]) {
+                return i;
+            }
+        }
+    }
+
+    return -1;
+}
 char *squeeze(const char s1[], const char s2[]) {
     int *s2_ = ALLOCATE_INT(256);
     int i = 0;
