@@ -287,7 +287,6 @@ char* expand(const char s1[]){
     }
 
     res[ind]='\0';
-    printf("%s\n",res);
     return res;
 }
 
