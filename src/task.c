@@ -261,4 +261,33 @@ char* itob(int n, int b) {
     return res;
 }
 
+int strrindex(const char s[], const  char t[]) {
+    int i = 0, sizeS, sizeT;
+    STRING_LEN(i, s);
+
+    sizeS = i;
+    i = 0;
+
+    STRING_LEN(i, t);
+    sizeT = i;
+
+    for (i = sizeS; i >= 0; i--) {
+        if (s[i] == t[sizeT-1] && sizeT-2 <= i) {
+            int temp = 1;
+            _Bool match = 1;
+
+            for (int j = sizeT-2; j >= 0; j--) {
+                match &= t[j] == s[i-temp];
+                temp++;
+            }
+
+            if (match) {
+                return i-temp+1;
+            }
+        }
+    }
+
+    return -1;
+}
+
 /** GET FROM task.h */

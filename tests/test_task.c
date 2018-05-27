@@ -254,9 +254,34 @@ END_TEST
 //END_TEST
 
 
-START_TEST (test_strrindex)
+START_TEST (test_strrindex1)
     {
+        char s[] = "Hello my dear friend";
+        char t[] = "dear";
+        int output = 9;
 
+        ck_assert(output == strrindex(s, t));
+    }
+END_TEST
+
+
+START_TEST (test_strrindex2)
+    {
+        char s[] = "Hello my dear friend";
+        char t[] = "Love";
+        int output = -1;
+
+        ck_assert(output == strrindex(s, t));
+    }
+END_TEST
+
+START_TEST (test_strrindex3)
+    {
+        char s[] = "Hello my dear my dear, my dear friend";
+        char t[] = "my dear";
+        int output = 23;
+
+        ck_assert(output == strrindex(s, t));
     }
 END_TEST
 
@@ -294,8 +319,10 @@ Suite *str_suite(void) {
     tcase_add_test(tcase, test_itoa);
     tcase_add_test(tcase, test_itob1);
     tcase_add_test(tcase, test_itob2);
-    tcase_add_test(tcase, test_itob3);
-    tcase_add_test(tcase, test_strrindex);
+//    tcase_add_test(tcase, test_itob3);
+    tcase_add_test(tcase, test_strrindex1);
+    tcase_add_test(tcase, test_strrindex2);
+    tcase_add_test(tcase, test_strrindex3);
     tcase_add_test(tcase, test_atofe);
     /** YOUT TEST CASES HERE */
 
