@@ -5,6 +5,7 @@
 #include <check.h>
 #include "task.h"
 
+
 START_TEST (test_stub)
     {
         ck_assert(42 == stub());
@@ -108,7 +109,8 @@ END_TEST
 
 START_TEST (test_flush)
     {
-        const char input1[] ="#include <stdio.h>\n"
+        const char input[] = "/* Input two numbers, output the product */\n"
+                             "#include <stdio.h>\n"
                              "main()\n"
                              "{\n"
                              "\t\tint x,y,m;\t\t\t\t/* 定义整型变量x，y，m */\n"
@@ -117,7 +119,7 @@ START_TEST (test_flush)
                              "\t\tm=x*y;\t\t\t\t\t/* 计算两个乘数的积，赋给变量m */\n"
                              "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t/* 输出结果 */\n"
                              "}";
-        const char output1[] = "#include <stdio.h>\n"
+        const char output[] = "#include <stdio.h>\n"
                               "main()\n"
                               "{\n"
                               "\t\tint x,y,m;\t\t\t\t\n"
@@ -127,42 +129,42 @@ START_TEST (test_flush)
                               "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t\n"
                               "}";
         int k = 1;
-        COMPARATOR(k, flush(input1), output1);
+        COMPARATOR(k, flush(input), output);
         ck_assert(1 == k);
 
         const char input2[] = "#include <stdio.h>\n"
-                "#define MAX 50\n"
-                "/*\n"
-                " * 函数rep实现对s中出现的s1中的字符替换为s2中相应的字符\n"
-                " * */\n"
-                "rep(char *s,char *s1,char *s2)\n"
-                "{\n"
-                "    char *p;\n"
-                "\n"
-                "    for(;*s;s++)\n"
-                "    //顺序访问字符串s中的每个字符\n"
-                "    {\n"
-                "        for(p=s1;*p&&*p!=*s;p++);\n"
-                "        /*\n"
-                "         * 检查当前字符是否在字符串s1中出现\n"
-                "         * */\n"
-                "            if(*p)*s=*(p-s1+s2);/*当前字符在字符串s1中出现，用字符串s2中的对应字符代替s中的字符*/\n"
-                "        }\n"
-                "}";
+                              "#define MAX 50\n"
+                              "/*\n"
+                              " * 函数rep实现对s中出现的s1中的字符替换为s2中相应的字符\n"
+                              " * */\n"
+                              "rep(char *s,char *s1,char *s2)\n"
+                              "{\n"
+                              "    char *p;\n"
+                              "\n"
+                              "    for(;*s;s++)\n"
+                              "    //顺序访问字符串s中的每个字符\n"
+                              "    {\n"
+                              "        for(p=s1;*p&&*p!=*s;p++);\n"
+                              "        /*\n"
+                              "         * 检查当前字符是否在字符串s1中出现\n"
+                              "         * */\n"
+                              "            if(*p)*s=*(p-s1+s2);/*当前字符在字符串s1中出现，用字符串s2中的对应字符代替s中的字符*/\n"
+                              "        }\n"
+                              "}";
         const char output2[] = "#include <stdio.h>\n"
-                  "#define MAX 50\n"
-                  "\n"
-                  "rep(char *s,char *s1,char *s2)\n"
-                  "{\n"
-                  "    char *p;\n"
-                  "\n"
-                  "    for(;*s;s++)\n"
-                  "        {\n"
-                  "        for(p=s1;*p&&*p!=*s;p++);\n"
-                  "        \n"
-                  "            if(*p)*s=*(p-s1+s2);\n"
-                  "        }\n"
-                  "}";
+                               "#define MAX 50\n"
+                               "\n"
+                               "rep(char *s,char *s1,char *s2)\n"
+                               "{\n"
+                               "    char *p;\n"
+                               "\n"
+                               "    for(;*s;s++)\n"
+                               "        {\n"
+                               "        for(p=s1;*p&&*p!=*s;p++);\n"
+                               "        \n"
+                               "            if(*p)*s=*(p-s1+s2);\n"
+                               "        }\n"
+                               "}";
 
         COMPARATOR(k, flush(input2), output2);
         ck_assert(1 == k);
@@ -244,11 +246,11 @@ END_TEST
 
 START_TEST (test_setbits1)
     {
+
         int x = 50, p = 3, y = 500, n = 3;
         ck_assert(setbits(x, p, n, y) == 52);
     }
 END_TEST
-
 
 START_TEST (test_binsearch)
     {
@@ -279,8 +281,8 @@ START_TEST (test_expand)
 
 
 
-        const char in2[]="-a-z";
-        const char pattern2[]="abcdefghijklmnopqrstuvwxyz";
+        const char in2[]="-a-z0-5";
+        const char pattern2[]="-abcdefghijklmnopqrstuvwxyz012345";
         char* res2=expand(in2);
         int k2=1;
         COMPARATOR(k2,res2,pattern2);
@@ -331,6 +333,9 @@ START_TEST (test_itob2)
         ck_assert(k || temp == 1);
     }
 END_TEST
+
+
+
 
 START_TEST (test_strrindex1)
     {
