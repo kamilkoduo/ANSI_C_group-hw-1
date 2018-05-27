@@ -51,7 +51,7 @@ char *array_changer(const char c[]) {
 char* entab(const char input[]){
     int i=0;
     STRING_LEN(i,input);
-    int* buf=ALLOCATE_INT(i);
+    int* buf=malloc((i)*sizeof(int));
     int size=i;
     buf[0]=input[0]==' '?1:0;
     for (int j=1;j<i;j++){
@@ -191,7 +191,7 @@ int any(const char s1[], const char s2[]) {
     return -1;
 }
 char *squeeze(const char s1[], const char s2[]) {
-    int *s2_ = ALLOCATE_INT(256);
+    int *s2_ = malloc((256)*sizeof(int));
     int i = 0;
     STRING_LEN(i, s2);
     for (int j = 0; j < i; j++) {

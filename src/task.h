@@ -9,7 +9,7 @@
 #include "stdlib.h"
 
 #define ALLOCATE(i)(malloc((i) * sizeof(char)))
-#define ALLOCATE_INT(i)(malloc((i)*sizeof(int)))
+
 
 
 #define STRING_LEN(j, c) do                \
