@@ -66,7 +66,7 @@ char* escape(const char from[]);
 
 char* expand(const char s1[]);
 
-char* itoa(int n, const char s[]);
+char* itoa(int n);
 
 char* itob(int n, int b);
 

@@ -330,7 +330,31 @@ END_TEST
 
 START_TEST (test_itoa)
     {
+        int k = 1;
+        char* out1 = itoa(-128);
+        COMPARATOR(k, out1, "-128");
+        ck_assert(k == 1);
+        free(out1);
 
+        char* out2 = itoa(128);
+        COMPARATOR(k, out2, "128");
+        ck_assert(k == 1);
+        free(out2);
+
+        char* out3 = itoa(-73);
+        COMPARATOR(k, out3, "-73");
+        ck_assert(k == 1);
+        free(out3);
+
+        char* out4 = itoa(73);
+        COMPARATOR(k, out4, "73");
+        ck_assert(k==1);
+        free(out4);
+
+        char* out5 = itoa(0);
+        COMPARATOR(k, out5, "0");
+        ck_assert(k == 1);
+        free(out5);
     }
 END_TEST
 

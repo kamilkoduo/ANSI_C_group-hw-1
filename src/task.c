@@ -468,6 +468,33 @@ double atofe(const char s[]) {
         exp = 10.0 * exp + (s[i] - '0');
 
     return sign*val/power * pow(10,signexp*exp);
+}
 
+char* itoa(int n){
+
+    int i = 1, sign = n;
+
+    char* out = ALLOCATE(12);
+
+    out[0] = '\0';
+
+    do{
+        if(sign >= 0)
+            out[i] = n % 10 + '0';
+        else out[i] = -1*(n % 10) + '0';
+        i++;
+    }while((n /= 10) != 0 );
+
+    if(sign < 0) out[i] = '-';
+    else i--;
+
+    for(int j = 0; j <= i/2; j++){
+
+        char c = out[i-j];
+        out[i-j] = out[j];
+        out[j] = c;
+
+    }
+    return out;
 }
 /** GET FROM task.h */
