@@ -68,7 +68,7 @@ char* expand(const char s1[], const char s2[]);
 
 char* itoa(int n, const char s[]);
 
-char* itob(int n, const char s[], int b);
+char* itob(int n, int b);
 
 int strrindex(const char s[], const  char t[]);
 

@@ -129,9 +129,7 @@ char* binarize_u(unsigned long long x)
     }
 
     int smth;
-    if (63-j <= 8) {
-        smth = 8;
-    } else if (63-j <= 16) {
+    if (63-j <= 16) {
         smth = 16;
     } else if (63-j <= 32) {
         smth = 32;

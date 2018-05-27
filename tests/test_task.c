@@ -214,11 +214,45 @@ START_TEST (test_itoa)
     }
 END_TEST
 
-START_TEST (test_itob)
+START_TEST (test_itob1)
     {
+        int n = 10, b = 2;
+        char res[] = "1010";
 
+        int k = 1;
+        COMPARATOR(k, itob(n, b), res);
+        ck_assert(k == 1);
     }
 END_TEST
+
+START_TEST (test_itob2)
+    {
+        int n = 75, b = 16;
+        char res1[] = "4B";
+        char res2[] = "4b";
+
+        int k = 1;
+        COMPARATOR(k, itob(n, b), res1);
+        int temp = k;
+
+        k = 1;
+        COMPARATOR(k, itob(n, b), res1);
+
+        ck_assert(k || temp == 1);
+    }
+END_TEST
+
+//START_TEST (test_itob3)
+//    {
+//        int n = -2147483647, b = 11;
+//        char res[] = "1010";
+//
+//        int k = 1;
+//        COMPARATOR(k, itob(n, b), res);
+//        ck_assert(k == 1);
+//    }
+//END_TEST
+
 
 START_TEST (test_strrindex)
     {
@@ -258,7 +292,9 @@ Suite *str_suite(void) {
     tcase_add_test(tcase, test_escape);
     tcase_add_test(tcase, test_expand);
     tcase_add_test(tcase, test_itoa);
-    tcase_add_test(tcase, test_itob);
+    tcase_add_test(tcase, test_itob1);
+    tcase_add_test(tcase, test_itob2);
+    tcase_add_test(tcase, test_itob3);
     tcase_add_test(tcase, test_strrindex);
     tcase_add_test(tcase, test_atofe);
     /** YOUT TEST CASES HERE */

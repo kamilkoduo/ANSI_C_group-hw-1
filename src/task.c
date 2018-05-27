@@ -222,4 +222,43 @@ char *squeeze(const char s1[], const char s2[]) {
     return res;
 
 }
+
+char* itob(int n, int b) {
+    int temp[32], size = 0;
+    _Bool isNegative = n < 0;
+
+    if (isNegative) {
+        n *= -1;
+    }
+
+    while (n > 0) {
+        temp[size] = n % b;
+
+        n /= b;
+        size++;
+    }
+
+    char* res = ALLOCATE(size+1);
+    res[size] = '\0';
+    size--;
+
+    if (b <= 10) {
+        for (int i = 0; size >= 0; size--) {
+            res[i] = temp[size] + '0';
+            i++;
+        }
+    } else {
+        for (int i = 0; size >= 0; size--) {
+            if (temp[size] <= 9) {
+                res[i] = temp[size] + '0';
+            } else {
+                res[i] = temp[size] + 'A' - 10;
+            }
+            i++;
+        }
+    }
+
+    return res;
+}
+
 /** GET FROM task.h */
