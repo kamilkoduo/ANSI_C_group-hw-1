@@ -350,7 +350,23 @@ char* flush(char arr[]) {
     return out;
 }
 
-unsigned setbits(unsigned x, int p, int n, unsigned y) {
+int binsearch(int x, int v[], int n){
+
+    int low, high, mid;
+
+    low = 0;
+    high = n - 1;
+    while(low < high){
+        mid = (low + high) / 2;
+        if (x <= v[mid])
+            high = mid;
+        else low = mid + 1;
+    }
+
+    return (x == v[high])? high: -1;
+}
+
+ unsigned setbits(unsigned x, int p, int n, unsigned y) {
     int temp[64];
 
     int j = 0;
@@ -377,7 +393,6 @@ unsigned setbits(unsigned x, int p, int n, unsigned y) {
         res += pow(2, i) * (binX[i] - '0');
     }
 
-    printf("%d\n", res);
     return res;
 }
 /** GET FROM task.h */
