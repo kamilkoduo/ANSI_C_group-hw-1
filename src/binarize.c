@@ -128,15 +128,31 @@ char* binarize_u(unsigned long long x)
         j--;
     }
 
-    char result[63-j];
+    int smth;
+    if (63-j <= 8) {
+        smth = 8;
+    } else if (63-j <= 16) {
+        smth = 16;
+    } else if (63-j <= 32) {
+        smth = 32;
+    } else {
+        smth = 64;
+    }
+
+    char result[smth+1];
+    result[smth] = '\0';
     char *res = result;
 
-    // Print digit to screen with spaces each 8 digits
+    for (int i = 0; i < smth; i++) {
+        result[i] = '0';
+    }
+
     for (int i = 0; j <= 63; j++) {
         result[i] = temp[j];
         i++;
     }
 
+    printf("%s\n", res);
     return res;
 }
 
