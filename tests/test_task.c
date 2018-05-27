@@ -398,7 +398,11 @@ END_TEST
 
 START_TEST (test_atofe)
     {
+        const char s[]="123.45e-6";
+        double res= 123.45 * 0.000001;
+        double output = atofe(s);
 
+        ck_assert(abs(res - output)<1e-9);
     }
 END_TEST
 

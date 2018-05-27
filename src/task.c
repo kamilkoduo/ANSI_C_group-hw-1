@@ -4,6 +4,8 @@
 
 #include "task.h"
 #include <math.h>
+#include <ctype.h>
+
 /** The stub function
  *  just to demonstrate how to work with ck_assert
  *  please look for test case for stub function in test_task.c
@@ -48,38 +50,38 @@ char *array_changer(const char c[]) {
 }
 
 /** YOUR SOLUTIONS */
-char* entab(const char input[]){
-    int i=0;
-    STRING_LEN(i,input);
-    int* buf=malloc((i)*sizeof(int));
-    int size=i;
-    buf[0]=input[0]==' '?1:0;
-    for (int j=1;j<i;j++){
-        if (input[j]==' '){
-            buf[j]=buf[j-1]+1;
-            if (buf[j]==4&&j>=3){
-                buf[j]=0;
-                buf[j-3]=-1;
-                size-=3;
+char *entab(const char input[]) {
+    int i = 0;
+    STRING_LEN(i, input);
+    int *buf = malloc((i) * sizeof(int));
+    int size = i;
+    buf[0] = input[0] == ' ' ? 1 : 0;
+    for (int j = 1; j < i; j++) {
+        if (input[j] == ' ') {
+            buf[j] = buf[j - 1] + 1;
+            if (buf[j] == 4 && j >= 3) {
+                buf[j] = 0;
+                buf[j - 3] = -1;
+                size -= 3;
             }
         }
     }
-    char* res=ALLOCATE(size);
-    int ind=-1;
-    for (int j=0;j<i;){
+    char *res = ALLOCATE(size);
+    int ind = -1;
+    for (int j = 0; j < i;) {
         ind++;
-        if (buf[j]==-1){
-            res[ind]='\t';
-            j+=4;
-        }
-        else{
-            res[ind]=input[j];
+        if (buf[j] == -1) {
+            res[ind] = '\t';
+            j += 4;
+        } else {
+            res[ind] = input[j];
             j++;
         }
     }
     return res;
 
 }
+
 char *detab(const char input[]) {
     int size = 0;
     int i = 0;
@@ -109,7 +111,8 @@ char *detab(const char input[]) {
     }
     return res;
 }
-char* enter(int n, const char input[]) {
+
+char *enter(int n, const char input[]) {
     int i = 0, size = 0, counter = 0;
 
     STRING_LEN(i, input);
@@ -135,7 +138,7 @@ char* enter(int n, const char input[]) {
             arr_pointer++;
             res[arr_pointer] = input[j];
             counter = 0;
-        } else if (input[j] == '\n'){
+        } else if (input[j] == '\n') {
             res[arr_pointer] = '\n';
             counter = 0;
         } else {
@@ -146,6 +149,7 @@ char* enter(int n, const char input[]) {
 
     return res;
 }
+
 int htoi(const char s[]) {
     int j = 0, i = 0;
     STRING_LEN(i, s);
@@ -180,7 +184,7 @@ int any(const char s1[], const char s2[]) {
     STRING_LEN(i, s2);
     size_s2 = i;
 
-    for (i = 0; i < size_s1; i++){
+    for (i = 0; i < size_s1; i++) {
         for (int j = 0; j < size_s2; j++) {
             if (s1[i] == s2[j]) {
                 return i;
@@ -190,8 +194,9 @@ int any(const char s1[], const char s2[]) {
 
     return -1;
 }
+
 char *squeeze(const char s1[], const char s2[]) {
-    int *s2_ = malloc((256)*sizeof(int));
+    int *s2_ = malloc((256) * sizeof(int));
     int i = 0;
     STRING_LEN(i, s2);
     for (int j = 0; j < i; j++) {
@@ -223,7 +228,7 @@ char *squeeze(const char s1[], const char s2[]) {
 
 }
 
-char* itob(int n, int b) {
+char *itob(int n, int b) {
     int temp[32], size = 0;
     _Bool isNegative = n < 0;
 
@@ -238,7 +243,7 @@ char* itob(int n, int b) {
         size++;
     }
 
-    char* res = ALLOCATE(size+1);
+    char *res = ALLOCATE(size + 1);
     res[size] = '\0';
     size--;
 
@@ -260,25 +265,30 @@ char* itob(int n, int b) {
 
     return res;
 }
-char* expand(const char s1[]){
-    int size=0;
-    int j=0;STRING_LEN(j,s1);
-    for (int i=0;i<j;i++){
-        if (i>1&&(s1[i]!='-')&&(s1[i-1]=='-')){
-            size+=s1[i]-s1[i-2]+1;
+
+char *expand(const char s1[]) {
+    int size = 0;
+    int j = 0;
+    STRING_LEN(j, s1);
+    for (int i = 0; i < j; i++) {
+        if (i > 1 && (s1[i] != '-') && (s1[i - 1] == '-')) {
+            size += s1[i] - s1[i - 2] + 1;
         }
-        if (i==1&&s1[i-1]=='-'){
-            size+=s1[i];
+        if (i == 1 && s1[i - 1] == '-') {
+            size += s1[i];
         }
     }
-    char* res=ALLOCATE(size);
-    int ind=0;
-    if (j>0&&s1[0]=='-'){res[0]='-';ind=1;}
-    for (int i=1;i<j;i++){
+    char *res = ALLOCATE(size);
+    int ind = 0;
+    if (j > 0 && s1[0] == '-') {
+        res[0] = '-';
+        ind = 1;
+    }
+    for (int i = 1; i < j; i++) {
         //printf("%d",s1[i]);
-        if (i>1&&(s1[i-1]=='-')){
-            for (int l=s1[i-2];l<=s1[i];l++){
-                if (ind<1|(res[ind-1]!=l)) {
+        if (i > 1 && (s1[i - 1] == '-')) {
+            for (int l = s1[i - 2]; l <= s1[i]; l++) {
+                if (ind < 1 | (res[ind - 1] != l)) {
                     res[ind] = l;
                     ind++;
                 }
@@ -286,11 +296,11 @@ char* expand(const char s1[]){
         }
     }
 
-    res[ind]='\0';
+    res[ind] = '\0';
     return res;
 }
 
-int strrindex(const char s[], const  char t[]) {
+int strrindex(const char s[], const char t[]) {
     int i = 0, sizeS, sizeT;
     STRING_LEN(i, s);
 
@@ -301,17 +311,17 @@ int strrindex(const char s[], const  char t[]) {
     sizeT = i;
 
     for (i = sizeS; i >= 0; i--) {
-        if (s[i] == t[sizeT-1] && sizeT-2 <= i) {
+        if (s[i] == t[sizeT - 1] && sizeT - 2 <= i) {
             int temp = 1;
             _Bool match = 1;
 
-            for (int j = sizeT-2; j >= 0; j--) {
-                match &= t[j] == s[i-temp];
+            for (int j = sizeT - 2; j >= 0; j--) {
+                match &= t[j] == s[i - temp];
                 temp++;
             }
 
             if (match) {
-                return i-temp+1;
+                return i - temp + 1;
             }
         }
     }
@@ -319,7 +329,7 @@ int strrindex(const char s[], const  char t[]) {
     return -1;
 }
 
-char* flush(char arr[]) {
+char *flush(char arr[]) {
 
     int size = 0;
 
@@ -337,7 +347,7 @@ char* flush(char arr[]) {
 
         if (arr[i] == '/' && arr[i + 1] == '*') {
             i += 2;
-            while (arr[i] != '*' || arr[i + 1] != '/') i ++;
+            while (arr[i] != '*' || arr[i + 1] != '/') i++;
             i++;
             continue;
         }
@@ -348,36 +358,36 @@ char* flush(char arr[]) {
     return out;
 }
 
-int binsearch(int x, int v[], int n){
+int binsearch(int x, int v[], int n) {
 
     int low, high, mid;
 
     low = 0;
     high = n - 1;
-    while(low < high){
+    while (low < high) {
         mid = (low + high) / 2;
         if (x <= v[mid])
             high = mid;
         else low = mid + 1;
     }
 
-    return (x == v[high])? high: -1;
+    return (x == v[high]) ? high : -1;
 }
 
-char* escape(const char from[]){
+char *escape(const char from[]) {
     int size = 0;
 
     STRING_LEN(size, from);
 
-    char *out = ALLOCATE(2*size);
+    char *out = ALLOCATE(2 * size);
     char c = 1;
 
     int ind = 0;
 
-    for(int i = 0; c != '\0'; i++){
+    for (int i = 0; c != '\0'; i++) {
         c = from[i];
 
-        switch (c){
+        switch (c) {
             case '\n':
                 out[ind++] = '\\';
                 out[ind] = 'n';
@@ -386,7 +396,8 @@ char* escape(const char from[]){
                 out[ind++] = '\\';
                 out[ind] = 't';
                 break;
-            default: out[ind] = c;
+            default:
+                out[ind] = c;
         }
 
         ind++;
@@ -414,17 +425,49 @@ unsigned setbits(unsigned x, int p, int n, unsigned y) {
         binX[j] = temp[j] + '0';
     }
 
-    for (int i = 0; i <= p-1 || n > 0; i++) {
+    for (int i = 0; i <= p - 1 || n > 0; i++) {
         binX[i] = y % 2 + '0';
         y /= 2;
         n--;
     }
 
     unsigned res = 0;
-    for (int i = size-1; i >= 0; i--) {
+    for (int i = size - 1; i >= 0; i--) {
         res += pow(2, i) * (binX[i] - '0');
     }
 
     return res;
+}
+
+double atofe(const char s[]) {
+    double val, power,exp;
+    int i, sign,signexp;
+
+    for (i = 0; isspace(s[i]); i++);
+
+    sign = (s[i] == '-') ? -1 : 1;
+
+    if (s[i] == '+' || s[i] == '-')
+        i++;
+    for (val = 0.0; isdigit(s[i]); i++)
+        val = 10.0 * val + (s[i] - '0');
+    if (s[i] == '.')
+        i++;
+    for (power = 1.0;isdigit(s[i]);i++){
+        val=10.0*val + (s[i] - '0');
+        power *=10.0;
+    }
+    if( s[i]=='e' || s[i]=='E')
+        i++;
+    signexp = (s[i] == '-') ? -1 : 1;
+
+    if (s[i] == '+' || s[i] == '-')
+        i++;
+
+    for (exp = 0.0; isdigit(s[i]); i++)
+        exp = 10.0 * exp + (s[i] - '0');
+
+    return sign*val/power * pow(10,signexp*exp);
+
 }
 /** GET FROM task.h */
