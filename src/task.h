@@ -62,7 +62,7 @@ unsigned setbits(unsigned x, int p, int n, unsigned y);
 
 int binsearch(int x, int v[], int n);
 
-char* escape(const char from[], const char to[]);
+char* escape(const char from[]);
 
 char* expand(const char s1[]);
 

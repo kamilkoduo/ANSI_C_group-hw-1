@@ -324,8 +324,7 @@ char* flush(char arr[]) {
 
     int size = 0;
 
-    for (int i = 0; arr[i] != '\0'; i++)
-        size++;
+    STRING_LEN(size, arr);
 
     char *out = ALLOCATE(size);
     int ind = 0;
@@ -366,7 +365,41 @@ int binsearch(int x, int v[], int n){
     return (x == v[high])? high: -1;
 }
 
- unsigned setbits(unsigned x, int p, int n, unsigned y) {
+char* escape(const char from[]){
+    int size = 0;
+
+    STRING_LEN(size, from);
+
+    char *out = ALLOCATE(2*size);
+    char c = 1;
+
+    int ind = 0;
+
+    for(int i = 0; c != '\0'; i++){
+        c = from[i];
+
+        switch (c){
+            case '\n':
+                out[ind++] = '\\';
+                out[ind] = 'n';
+                break;
+            case '\t':
+                out[ind++] = '\\';
+                out[ind] = 't';
+                break;
+            default: out[ind] = c;
+        }
+
+        ind++;
+    }
+
+    out[ind] = '\0';
+
+    return out;
+}
+
+
+unsigned setbits(unsigned x, int p, int n, unsigned y) {
     int temp[64];
 
     int j = 0;
