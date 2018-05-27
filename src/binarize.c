@@ -150,7 +150,6 @@ char* binarize_u(unsigned long long x)
         i++;
     }
 
-    printf("%s\n", res);
     return res;
 }
 

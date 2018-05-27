@@ -349,4 +349,35 @@ char* flush(char arr[]) {
     }
     return out;
 }
+
+unsigned setbits(unsigned x, int p, int n, unsigned y) {
+    int temp[64];
+
+    int j = 0;
+    while (x > 0) {
+        temp[j] = x % 2;
+        j++;
+        x /= 2;
+    }
+
+    char binX[j];
+    int size = j;
+    for (; j >= 0; j--) {
+        binX[j] = temp[j] + '0';
+    }
+
+    for (int i = 0; i <= p-1 || n > 0; i++) {
+        binX[i] = y % 2 + '0';
+        y /= 2;
+        n--;
+    }
+
+    unsigned res = 0;
+    for (int i = size-1; i >= 0; i--) {
+        res += pow(2, i) * (binX[i] - '0');
+    }
+
+    printf("%d\n", res);
+    return res;
+}
 /** GET FROM task.h */

@@ -5,7 +5,6 @@
 #include <check.h>
 #include "task.h"
 
-
 START_TEST (test_stub)
     {
         ck_assert(42 == stub());
@@ -208,11 +207,13 @@ START_TEST (test_any3)
     }
 END_TEST
 
-START_TEST (test_setbits)
+START_TEST (test_setbits1)
     {
-
+        int x = 50, p = 3, y = 500, n = 3;
+        ck_assert(setbits(x, p, n, y) == 52);
     }
 END_TEST
+
 
 START_TEST (test_binsearch)
     {
@@ -291,18 +292,6 @@ START_TEST (test_itob2)
     }
 END_TEST
 
-//START_TEST (test_itob3)
-//    {
-//        int n = -2147483647, b = 11;
-//        char res[] = "1010";
-//
-//        int k = 1;
-//        COMPARATOR(k, itob(n, b), res);
-//        ck_assert(k == 1);
-//    }
-//END_TEST
-
-
 START_TEST (test_strrindex1)
     {
         char s[] = "Hello my dear friend";
@@ -361,7 +350,7 @@ Suite *str_suite(void) {
     tcase_add_test(tcase, test_any1);
     tcase_add_test(tcase, test_any2);
     tcase_add_test(tcase, test_any3);
-    tcase_add_test(tcase, test_setbits);
+    tcase_add_test(tcase, test_setbits1);
     tcase_add_test(tcase, test_binsearch);
     tcase_add_test(tcase, test_escape);
     tcase_add_test(tcase, test_expand);
