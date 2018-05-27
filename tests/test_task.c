@@ -131,7 +131,6 @@ START_TEST (test_flush)
         char* out1 = flush(input1);
         COMPARATOR(k, out1, output1);
         ck_assert(1 == k);
-        free(out1);
 
         const char input2[] = "#include <stdio.h>\n"
                 "#define MAX 50\n"
@@ -170,7 +169,6 @@ START_TEST (test_flush)
         char* out2 = flush(input2);
         COMPARATOR(k, out2, output2);
         ck_assert(1 == k);
-        free(out2);
     }
 END_TEST
 
@@ -268,13 +266,11 @@ START_TEST (test_binsearch)
         ck_assert(binsearch(5, in2, 10) == 5);
         ck_assert(binsearch(8, in2, 10) == 8);
         ck_assert(binsearch(13, in2, 10) == -1);
-
     }
 END_TEST
 
 START_TEST (test_escape)
     {
-
         const char input1[] ="#include <stdio.h>\n";
         const char output1[] = "#include <stdio.h>\\n";
         int k = 1;
@@ -313,8 +309,8 @@ START_TEST (test_expand)
 
 
 
-        const char in2[]="-a-z";
-        const char pattern2[]="abcdefghijklmnopqrstuvwxyz";
+        const char in2[]="-a-z0-5";
+        const char pattern2[]="-abcdefghijklmnopqrstuvwxyz012345";
         char* res2=expand(in2);
         int k2=1;
         COMPARATOR(k2,res2,pattern2);
@@ -366,16 +362,7 @@ START_TEST (test_itob2)
     }
 END_TEST
 
-//START_TEST (test_itob3)
-//    {
-//        int n = -2147483647, b = 11;
-//        char res[] = "1010";
-//
-//        int k = 1;
-//        COMPARATOR(k, itob(n, b), res);
-//        ck_assert(k == 1);
-//    }
-//END_TEST
+
 
 
 START_TEST (test_strrindex1)
