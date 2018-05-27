@@ -260,6 +260,36 @@ char* itob(int n, int b) {
 
     return res;
 }
+char* expand(const char s1[]){
+    int size=0;
+    int j=0;STRING_LEN(j,s1);
+    for (int i=0;i<j;i++){
+        if (i>1&&(s1[i]!='-')&&(s1[i-1]=='-')){
+            size+=s1[i]-s1[i-2]+1;
+        }
+        if (i==1&&s1[i-1]=='-'){
+            size+=s1[i];
+        }
+    }
+    char* res=ALLOCATE(size);
+    int ind=0;
+    if (j>0&&s1[0]=='-'){res[0]='-';ind=1;}
+    for (int i=1;i<j;i++){
+        //printf("%d",s1[i]);
+        if (i>1&&(s1[i-1]=='-')){
+            for (int l=s1[i-2];l<=s1[i];l++){
+                if (ind<1|(res[ind-1]!=l)) {
+                    res[ind] = l;
+                    ind++;
+                }
+            }
+        }
+    }
+
+    res[ind]='\0';
+    printf("%s\n",res);
+    return res;
+}
 
 int strrindex(const char s[], const  char t[]) {
     int i = 0, sizeS, sizeT;

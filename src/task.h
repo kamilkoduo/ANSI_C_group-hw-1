@@ -50,7 +50,7 @@ char* entab(const char input[]);
 
 char* enter(int n, const char input[]);
 
-char* flush(const char input[]);
+char* flush(char arr[]);
 
 int htoi(const char s[]);
 
@@ -64,7 +64,7 @@ int binsearch(int x, int v[], int n);
 
 char* escape(const char from[], const char to[]);
 
-char* expand(const char s1[], const char s2[]);
+char* expand(const char s1[]);
 
 char* itoa(int n, const char s[]);
 
