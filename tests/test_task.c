@@ -128,8 +128,10 @@ START_TEST (test_flush)
                               "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t\n"
                               "}";
         int k = 1;
-        COMPARATOR(k, flush(input1), output1);
+        char* out1 = flush(input1);
+        COMPARATOR(k, out1, output1);
         ck_assert(1 == k);
+        free(out1);
 
         const char input2[] = "#include <stdio.h>\n"
                 "#define MAX 50\n"
@@ -165,8 +167,10 @@ START_TEST (test_flush)
                   "        }\n"
                   "}";
 
-        COMPARATOR(k, flush(input2), output2);
+        char* out2 = flush(input2);
+        COMPARATOR(k, out2, output2);
         ck_assert(1 == k);
+        free(out2);
     }
 END_TEST
 
@@ -257,12 +261,43 @@ START_TEST (test_binsearch)
         ck_assert(binsearch(5, in1, 9) == 4);
         ck_assert(binsearch(8, in1, 9) == 7);
         ck_assert(binsearch(10, in1, 9) == -1);
+
+        int in2[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+
+        ck_assert(binsearch(2, in2, 10) == 2);
+        ck_assert(binsearch(5, in2, 10) == 5);
+        ck_assert(binsearch(8, in2, 10) == 8);
+        ck_assert(binsearch(13, in2, 10) == -1);
+
     }
 END_TEST
 
 START_TEST (test_escape)
     {
 
+        const char input1[] ="#include <stdio.h>\n";
+        const char output1[] = "#include <stdio.h>\\n";
+        int k = 1;
+
+        char* out1 = escape(input1);
+        COMPARATOR(k, out1, output1);
+        ck_assert(1 == k);
+        free(out1);
+
+
+        const char input2[] ="#include \t<stdio.h>\n";
+        const char output2[] = "#include \\t<stdio.h>\\n";
+        char* out2 = escape(input2);
+        COMPARATOR(k, out2, output2);
+        ck_assert(1 == k);
+        free(out2);
+
+        const char input3[] ="#include \t<stdio.h>\t\n";
+        const char output3[] = "#include \\t<stdio.h>\\t\\n";
+        char* out3 = escape(input3);
+        COMPARATOR(k, out3, output3);
+        ck_assert(1 == k);
+        free(out3);
     }
 END_TEST
 
