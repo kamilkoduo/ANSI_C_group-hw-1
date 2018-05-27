@@ -290,4 +290,33 @@ int strrindex(const char s[], const  char t[]) {
     return -1;
 }
 
+char* flush(char arr[]) {
+
+    int size = 0;
+
+    for (int i = 0; arr[i] != '\0'; i++)
+        size++;
+
+    char *out = ALLOCATE(size);
+    int ind = 0;
+
+    for (int i = 0; arr[i] != '\0'; i++) {
+
+        if (arr[i] == '/' && arr[i + 1] == '/') {
+            while (arr[i] != '\n') i++;
+            continue;
+        }
+
+        if (arr[i] == '/' && arr[i + 1] == '*') {
+            i += 2;
+            while (arr[i] != '*' || arr[i + 1] != '/') i ++;
+            i++;
+            continue;
+        }
+
+        out[ind] = arr[i];
+        ind++;
+    }
+    return out;
+}
 /** GET FROM task.h */

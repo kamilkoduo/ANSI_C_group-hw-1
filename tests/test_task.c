@@ -107,7 +107,65 @@ END_TEST
 
 START_TEST (test_flush)
     {
+        const char input[] = "/* Input two numbers, output the product */\n"
+                             "#include <stdio.h>\n"
+                             "main()\n"
+                             "{\n"
+                             "\t\tint x,y,m;\t\t\t\t/* 定义整型变量x，y，m */\n"
+                             "\t\tprintf(\"Please input x and y\\n\");\t/* 输出提示信息 */\n"
+                             "\t\tscanf(\"%d%d\",&x,&y);\t\t\t/* 读入两个乘数，赋给x，y变量 */\n"
+                             "\t\tm=x*y;\t\t\t\t\t/* 计算两个乘数的积，赋给变量m */\n"
+                             "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t/* 输出结果 */\n"
+                             "}";
+        const char output[] = "#include <stdio.h>\n"
+                              "main()\n"
+                              "{\n"
+                              "\t\tint x,y,m;\t\t\t\t\n"
+                              "\t\tprintf(\"Please input x and y\\n\");\t\n"
+                              "\t\tscanf(\"%d%d\",&x,&y);\t\t\t\n"
+                              "\t\tm=x*y;\t\t\t\t\t\n"
+                              "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t\n"
+                              "}";
+        int k = 1;
+        COMPARATOR(k, flush(input), output);
+        ck_assert(1 == k);
 
+        input = "#include <stdio.h>\n"
+                "#define MAX 50\n"
+                "/*\n"
+                " * 函数rep实现对s中出现的s1中的字符替换为s2中相应的字符\n"
+                " * */\n"
+                "rep(char *s,char *s1,char *s2)\n"
+                "{\n"
+                "    char *p;\n"
+                "\n"
+                "    for(;*s;s++)\n"
+                "    //顺序访问字符串s中的每个字符\n"
+                "    {\n"
+                "        for(p=s1;*p&&*p!=*s;p++);\n"
+                "        /*\n"
+                "         * 检查当前字符是否在字符串s1中出现\n"
+                "         * */\n"
+                "            if(*p)*s=*(p-s1+s2);/*当前字符在字符串s1中出现，用字符串s2中的对应字符代替s中的字符*/\n"
+                "        }\n"
+                "}";
+        output = "#include <stdio.h>\n"
+                 "#define MAX 50\n"
+                 "\n"
+                 "rep(char *s,char *s1,char *s2)\n"
+                 "{\n"
+                 "    char *p;\n"
+                 "\n"
+                 "    for(;*s;s++)\n"
+                 "        {\n"
+                 "        for(p=s1;*p&&*p!=*s;p++);\n"
+                 "        \n"
+                 "            if(*p)*s=*(p-s1+s2);\n"
+                 "        }\n"
+                 "}";
+
+        COMPARATOR(k, flush(input), output);
+        ck_assert(1 == k);
     }
 END_TEST
 
