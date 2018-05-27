@@ -4,7 +4,6 @@
 
 #include "task.h"
 #include <math.h>
-
 /** The stub function
  *  just to demonstrate how to work with ck_assert
  *  please look for test case for stub function in test_task.c
@@ -147,8 +146,6 @@ char* enter(int n, const char input[]) {
 
     return res;
 }
-
-
 int htoi(const char s[]) {
     int j = 0, i = 0;
     STRING_LEN(i, s);
@@ -193,3 +190,36 @@ int any(const char s1[], const char s2[]) {
 
     return -1;
 }
+char *squeeze(const char s1[], const char s2[]) {
+    int *s2_ = ALLOCATE_INT(256);
+    int i = 0;
+    STRING_LEN(i, s2);
+    for (int j = 0; j < i; j++) {
+        s2_[s2[j]] = 1;
+    }
+    //int i3=0;
+    //STRING_LEN(i3,"kekpek");
+    int i1 = 0;
+    STRING_LEN(i1, s1);
+    int size = i1;
+    for (int j = 0; j < i1; j++) {
+        if (s2_[s1[j]] == 1) {
+            size -= 1;
+            if (size < 0) {
+                size = 0;
+            }
+        }
+    }
+    char *res = ALLOCATE(size);
+    int ind = 0;
+    for (int j = 0; j < i1; j++) {
+        if (s2_[s1[j]] != 1) {
+            res[ind] = s1[j];
+            ind++;
+        }
+
+    }
+    return res;
+
+}
+/** GET FROM task.h */

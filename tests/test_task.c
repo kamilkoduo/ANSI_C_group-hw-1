@@ -71,7 +71,7 @@ END_TEST
 
 START_TEST (test_enter1)
     {
-        const char input[] =  "hellomydearfriend";
+        const char input[] = "hellomydearfriend";
         const char output[] = "hello\nmydea\nrfrie\nnd";
         int n = 5;
         int k = 1;
@@ -83,7 +83,7 @@ END_TEST
 
 START_TEST (test_enter2)
     {
-        const char input[] =  "";
+        const char input[] = "";
         const char output[] = "";
         int n = 1;
         int k = 1;
@@ -95,10 +95,10 @@ END_TEST
 
 START_TEST (test_enter3)
     {
-        const char input[] =  "i\n";
+        const char input[] = "i\n";
         const char output[] = "i\n";
         int n = 1;
-        int k = 1;
+        int k = 01;
         COMPARATOR(k, enter(n, input), output);
         ck_assert(1 == k);
 
@@ -147,6 +147,13 @@ END_TEST
 
 START_TEST (test_squeeze)
     {
+        char s1[] = "abcddeeh";
+        char s2[] = "bdfh";
+        char *res = squeeze(s1, s2);
+        const char pattern[] = "acee";
+        int k=0;
+        COMPARATOR(k,res,pattern);
+        ck_assert(k==1);
 
     }
 END_TEST
@@ -261,7 +268,6 @@ Suite *str_suite(void) {
 }
 
 int main(int argc, char *argv[]) {
-
     int number_failed;
     Suite *suite = str_suite();
     SRunner *runner = srunner_create(suite);
@@ -269,4 +275,5 @@ int main(int argc, char *argv[]) {
     number_failed = srunner_ntests_failed(runner);
     srunner_free(runner);
     return number_failed;
+
 }

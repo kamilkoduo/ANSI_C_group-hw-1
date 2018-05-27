@@ -11,11 +11,12 @@
 #define ALLOCATE(i)(malloc((i) * sizeof(char)))
 #define ALLOCATE_INT(i)(malloc((i)*sizeof(int)))
 
+
 #define STRING_LEN(j, c) do                \
-	{                                  \
-		for (;'\0' != (c)[i];i++); \
-		(j) = i;                   \
-	} while(0)                         \
+  {                                  \
+    for (;'\0' != (c)[j];(j)++); \
+  } while(0)
+                    \
 
 #define COMPARATOR(res, c1, c2) do                    \
 	{                                             \
