@@ -49,13 +49,14 @@ END_TEST
 
 START_TEST (test_detab)
     {
-        const char input[] = "\tabc\tdef\tghi";
-        const char pattern[] = "    abc    def    ghi";
+        const char input[] = "abc\t";
+        const char pattern[] = "abc    ";
         char *output = detab(input);
         int k = 1;
         COMPARATOR(k, output, pattern);
         ck_assert(1 == k);
         free(output);
+
     }
 END_TEST
 
@@ -109,64 +110,64 @@ END_TEST
 
 START_TEST (test_flush)
     {
-        const char input1[] ="#include <stdio.h>\n"
-                             "main()\n"
-                             "{\n"
-                             "\t\tint x,y,m;\t\t\t\t/* 定义整型变量x，y，m */\n"
-                             "\t\tprintf(\"Please input x and y\\n\");\t/* 输出提示信息 */\n"
-                             "\t\tscanf(\"%d%d\",&x,&y);\t\t\t/* 读入两个乘数，赋给x，y变量 */\n"
-                             "\t\tm=x*y;\t\t\t\t\t/* 计算两个乘数的积，赋给变量m */\n"
-                             "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t/* 输出结果 */\n"
-                             "}";
-        const char output1[] = "#include <stdio.h>\n"
+        const char input1[] = "#include <stdio.h>\n"
                               "main()\n"
                               "{\n"
-                              "\t\tint x,y,m;\t\t\t\t\n"
-                              "\t\tprintf(\"Please input x and y\\n\");\t\n"
-                              "\t\tscanf(\"%d%d\",&x,&y);\t\t\t\n"
-                              "\t\tm=x*y;\t\t\t\t\t\n"
-                              "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t\n"
+                              "\t\tint x,y,m;\t\t\t\t/* 定义整型变量x，y，m */\n"
+                              "\t\tprintf(\"Please input x and y\\n\");\t/* 输出提示信息 */\n"
+                              "\t\tscanf(\"%d%d\",&x,&y);\t\t\t/* 读入两个乘数，赋给x，y变量 */\n"
+                              "\t\tm=x*y;\t\t\t\t\t/* 计算两个乘数的积，赋给变量m */\n"
+                              "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t/* 输出结果 */\n"
                               "}";
+        const char output1[] = "#include <stdio.h>\n"
+                               "main()\n"
+                               "{\n"
+                               "\t\tint x,y,m;\t\t\t\t\n"
+                               "\t\tprintf(\"Please input x and y\\n\");\t\n"
+                               "\t\tscanf(\"%d%d\",&x,&y);\t\t\t\n"
+                               "\t\tm=x*y;\t\t\t\t\t\n"
+                               "\t\tprintf(\"%d * %d = %d\\n\",x,y,m);\t\t\n"
+                               "}";
         int k = 1;
-        char* out1 = flush(input1);
+        char *out1 = flush(input1);
         COMPARATOR(k, out1, output1);
         ck_assert(1 == k);
 
         const char input2[] = "#include <stdio.h>\n"
-                "#define MAX 50\n"
-                "/*\n"
-                " * 函数rep实现对s中出现的s1中的字符替换为s2中相应的字符\n"
-                " * */\n"
-                "rep(char *s,char *s1,char *s2)\n"
-                "{\n"
-                "    char *p;\n"
-                "\n"
-                "    for(;*s;s++)\n"
-                "    //顺序访问字符串s中的每个字符\n"
-                "    {\n"
-                "        for(p=s1;*p&&*p!=*s;p++);\n"
-                "        /*\n"
-                "         * 检查当前字符是否在字符串s1中出现\n"
-                "         * */\n"
-                "            if(*p)*s=*(p-s1+s2);/*当前字符在字符串s1中出现，用字符串s2中的对应字符代替s中的字符*/\n"
-                "        }\n"
-                "}";
+                              "#define MAX 50\n"
+                              "/*\n"
+                              " * 函数rep实现对s中出现的s1中的字符替换为s2中相应的字符\n"
+                              " * */\n"
+                              "rep(char *s,char *s1,char *s2)\n"
+                              "{\n"
+                              "    char *p;\n"
+                              "\n"
+                              "    for(;*s;s++)\n"
+                              "    //顺序访问字符串s中的每个字符\n"
+                              "    {\n"
+                              "        for(p=s1;*p&&*p!=*s;p++);\n"
+                              "        /*\n"
+                              "         * 检查当前字符是否在字符串s1中出现\n"
+                              "         * */\n"
+                              "            if(*p)*s=*(p-s1+s2);/*当前字符在字符串s1中出现，用字符串s2中的对应字符代替s中的字符*/\n"
+                              "        }\n"
+                              "}";
         const char output2[] = "#include <stdio.h>\n"
-                  "#define MAX 50\n"
-                  "\n"
-                  "rep(char *s,char *s1,char *s2)\n"
-                  "{\n"
-                  "    char *p;\n"
-                  "\n"
-                  "    for(;*s;s++)\n"
-                  "        {\n"
-                  "        for(p=s1;*p&&*p!=*s;p++);\n"
-                  "        \n"
-                  "            if(*p)*s=*(p-s1+s2);\n"
-                  "        }\n"
-                  "}";
+                               "#define MAX 50\n"
+                               "\n"
+                               "rep(char *s,char *s1,char *s2)\n"
+                               "{\n"
+                               "    char *p;\n"
+                               "\n"
+                               "    for(;*s;s++)\n"
+                               "        {\n"
+                               "        for(p=s1;*p&&*p!=*s;p++);\n"
+                               "        \n"
+                               "            if(*p)*s=*(p-s1+s2);\n"
+                               "        }\n"
+                               "}";
 
-        char* out2 = flush(input2);
+        char *out2 = flush(input2);
         COMPARATOR(k, out2, output2);
         ck_assert(1 == k);
     }
@@ -212,9 +213,9 @@ START_TEST (test_squeeze)
         char s2[] = "bdfh";
         char *res = squeeze(s1, s2);
         const char pattern[] = "acee";
-        int k=0;
-        COMPARATOR(k,res,pattern);
-        ck_assert(k==1);
+        int k = 1;
+        COMPARATOR(k, res, pattern);
+        ck_assert(k == 1);
         free(res);
     }
 END_TEST
@@ -233,7 +234,7 @@ START_TEST (test_any2)
         const char first_string[] = "Hello World!";
         const char second_string[] = "abc ";
         ck_assert(any(first_string, second_string) == 5);
-   }
+    }
 END_TEST
 
 
@@ -245,17 +246,14 @@ START_TEST (test_any3)
     }
 END_TEST
 
-START_TEST (test_setbits1)
+START_TEST (test_setbits)
     {
         int x = 50, p = 3, y = 500, n = 3;
         ck_assert(setbits(x, p, n, y) == 52);
     }
 END_TEST
-START_TEST (test_setbits)
-    {
 
-    }
-END_TEST
+
 
 START_TEST (test_binsearch)
     {
@@ -277,26 +275,26 @@ END_TEST
 
 START_TEST (test_escape)
     {
-        const char input1[] ="#include <stdio.h>\n";
+        const char input1[] = "#include <stdio.h>\n";
         const char output1[] = "#include <stdio.h>\\n";
         int k = 1;
 
-        char* out1 = escape(input1);
+        char *out1 = escape(input1);
         COMPARATOR(k, out1, output1);
         ck_assert(1 == k);
         free(out1);
 
 
-        const char input2[] ="#include \t<stdio.h>\n";
+        const char input2[] = "#include \t<stdio.h>\n";
         const char output2[] = "#include \\t<stdio.h>\\n";
-        char* out2 = escape(input2);
+        char *out2 = escape(input2);
         COMPARATOR(k, out2, output2);
         ck_assert(1 == k);
         free(out2);
 
-        const char input3[] ="#include \t<stdio.h>\t\n";
+        const char input3[] = "#include \t<stdio.h>\t\n";
         const char output3[] = "#include \\t<stdio.h>\\t\\n";
-        char* out3 = escape(input3);
+        char *out3 = escape(input3);
         COMPARATOR(k, out3, output3);
         ck_assert(1 == k);
         free(out3);
@@ -305,31 +303,30 @@ END_TEST
 
 START_TEST (test_expand)
     {
-        const char in[]="a-z";
-        const char pattern[]="abcdefghijklmnopqrstuvwxyz";
-        char* res=expand(in);
-        int k=1;
-        COMPARATOR(k,res,pattern);
-        ck_assert(k==1);
+        const char in[] = "a-z";
+        const char pattern[] = "abcdefghijklmnopqrstuvwxyz";
+        char *res = expand(in);
+        int k = 1;
+        COMPARATOR(k, res, pattern);
+        ck_assert(k == 1);
         free(res);
 
 
-
-        const char in2[]="-a-z0-5";
-        const char pattern2[]="-abcdefghijklmnopqrstuvwxyz012345";
-        char* res2=expand(in2);
-        int k2=1;
-        COMPARATOR(k2,res2,pattern2);
-        ck_assert(k2==1);
+        const char in2[] = "-a-z0-5";
+        const char pattern2[] = "-abcdefghijklmnopqrstuvwxyz012345";
+        char *res2 = expand(in2);
+        int k2 = 1;
+        COMPARATOR(k2, res2, pattern2);
+        ck_assert(k2 == 1);
         free(res2);
 
-        const char in3[]="-a-d-u5-9";
-        const char pattern3[]="-abcdefghijklmnopqrstu56789";
+        const char in3[] = "-a-d-u5-9";
+        const char pattern3[] = "-abcdefghijklmnopqrstu56789";
 
-        char* res3=expand(in3);
-        int k3=0;
-        COMPARATOR(k3,res3,pattern3);
-        ck_assert(k3==1);
+        char *res3 = expand(in3);
+        int k3 = 1;
+        COMPARATOR(k3, res3, pattern3);
+        ck_assert(k3 == 1);
         free(res3);
     }
 END_TEST
@@ -337,27 +334,27 @@ END_TEST
 START_TEST (test_itoa)
     {
         int k = 1;
-        char* out1 = itoa(-128);
+        char *out1 = itoa(-128);
         COMPARATOR(k, out1, "-128");
         ck_assert(k == 1);
         free(out1);
 
-        char* out2 = itoa(128);
+        char *out2 = itoa(128);
         COMPARATOR(k, out2, "128");
         ck_assert(k == 1);
         free(out2);
 
-        char* out3 = itoa(-73);
+        char *out3 = itoa(-73);
         COMPARATOR(k, out3, "-73");
         ck_assert(k == 1);
         free(out3);
 
-        char* out4 = itoa(73);
+        char *out4 = itoa(73);
         COMPARATOR(k, out4, "73");
-        ck_assert(k==1);
+        ck_assert(k == 1);
         free(out4);
 
-        char* out5 = itoa(0);
+        char *out5 = itoa(0);
         COMPARATOR(k, out5, "0");
         ck_assert(k == 1);
         free(out5);
@@ -393,8 +390,6 @@ START_TEST (test_itob2)
 END_TEST
 
 
-
-
 START_TEST (test_strrindex1)
     {
         char s[] = "Hello my dear friend";
@@ -428,11 +423,11 @@ END_TEST
 
 START_TEST (test_atofe)
     {
-        const char s[]="123.45e-6";
-        double res= 123.45 * 0.000001;
+        const char s[] = "123.45e-6";
+        double res = 123.45 * 0.000001;
         double output = atofe(s);
 
-        ck_assert(abs(res - output)<1e-9);
+        ck_assert(abs(res - output) < 1e-9);
     }
 END_TEST
 
