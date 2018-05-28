@@ -245,6 +245,12 @@ START_TEST (test_any3)
     }
 END_TEST
 
+START_TEST (test_setbits1)
+    {
+        int x = 50, p = 3, y = 500, n = 3;
+        ck_assert(setbits(x, p, n, y) == 52);
+    }
+END_TEST
 START_TEST (test_setbits)
     {
 
