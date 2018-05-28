@@ -57,6 +57,21 @@ START_TEST (test_detab)
         ck_assert(1 == k);
         free(output);
 
+        const char input_2[] = "\t";
+        const char pattern_2[] = "    ";
+        char *output_2 = detab(input_2);
+        int k_2 = 1;
+        COMPARATOR(k_2, output_2, pattern_2);
+        ck_assert(1 == k_2);
+        free(output_2);
+
+        const char input_3[] = "";
+        const char pattern_3[] = "";
+        char *output_3 = detab(input_3);
+        int k_3 = 1;
+        COMPARATOR(k_3, output_3, pattern_3);
+        ck_assert(1 == k_3);
+        free(output_3);
     }
 END_TEST
 
@@ -69,6 +84,15 @@ START_TEST (test_entab)
         COMPARATOR(k, output, pattern);
         ck_assert(k == 1);
         free(output);
+
+
+        const char input_2[] = "";
+        const char pattern_2[] = "";
+        char *output_2 = entab(input_2);
+        int k_2 = 1;
+        COMPARATOR(k_2, output_2, pattern_2);
+        ck_assert(k_2 == 1);
+        free(output_2);
     }
 END_TEST
 
