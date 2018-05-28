@@ -49,8 +49,8 @@ END_TEST
 
 START_TEST (test_detab)
     {
-        const char input[] = "abc\t";
-        const char pattern[] = "abc    ";
+        const char input[] = "\tfff\t\t";
+        const char pattern[] = "    fff        ";
         char *output = detab(input);
         int k = 1;
         COMPARATOR(k, output, pattern);
@@ -62,8 +62,8 @@ END_TEST
 
 START_TEST (test_entab)
     {
-        const char input[] = "          1234     5          ";
-        const char pattern[] = "\t\t  1234\t 5\t\t   ";
+        const char input[] = "        f";
+        const char pattern[] = "\t\tf";
         char *output = entab(input);
         int k = 1;
         COMPARATOR(k, output, pattern);
@@ -209,14 +209,23 @@ END_TEST
 
 START_TEST (test_squeeze)
     {
-        char s1[] = "abcddeeh";
-        char s2[] = "bdfh";
+        char s1[] = "abcddddlkm";
+        char s2[] = "dhll";
         char *res = squeeze(s1, s2);
-        const char pattern[] = "acee";
+        const char pattern[] = "abckm";
         int k = 1;
         COMPARATOR(k, res, pattern);
         ck_assert(k == 1);
         free(res);
+
+        char s1_2[] = "a";
+        char s2_2[] = "a";
+        char *res_2 = squeeze(s1_2, s2_2);
+        const char pattern_2[] = "";
+        int k2 = 1;
+        COMPARATOR(k2, res_2, pattern_2);
+        ck_assert(k2 == 1);
+        free(res_2);
     }
 END_TEST
 

@@ -53,8 +53,10 @@ char *array_changer(const char c[]) {
 char *entab(const char input[]) {
     int i = 0;
     STRING_LEN(i, input);
+
     int *buf = malloc((i) * sizeof(int));
     int size = i;
+
     buf[0] = input[0] == ' ' ? 1 : 0;
     for (int j = 1; j < i; j++) {
         if (input[j] == ' ') {
@@ -67,6 +69,10 @@ char *entab(const char input[]) {
         }
     }
     char *res = ALLOCATE(size);
+    if (i==0){
+        res[0]='\0';
+        return res;
+    }
     int ind = -1;
     for (int j = 0; j < i;) {
         ind++;
@@ -78,6 +84,7 @@ char *entab(const char input[]) {
             j++;
         }
     }
+    res[ind+1]='\0';
     return res;
 
 }
